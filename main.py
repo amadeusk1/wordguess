@@ -1,20 +1,21 @@
 import random #will help randomize the word
 import os #will be used to clear the terminal
+#note that the single character variables are very vital for the code but do not have a word to define them
 
 words = ['computer','python','rainbow','book','koala','pizza','water','condition','programming','random'] #words to choose from to guess
 
 
 def newgame():
-    #word = random.choice(words)
-    word = "tree"
-    print(word)
-
+    word = random.choice(words)
     charused = ""
-    numleft = 13
+    numleft = level("placeholder")
+    os.system('cls' if os.name == 'nt' else 'clear')
     dword = []
+    win = False
     for i in word:
          dword.append("_")
-    while numleft > 0:
+    while numleft > 0 and win == False:
+        print("You have %s number of tries left!" %numleft)
         print(dword)
         print("Characters you've used: ",charused)
         guess = input("enter a character: ")
@@ -32,10 +33,20 @@ def newgame():
                     #print(c, "here")
                     dword[c] = guess
                 c+=1
+        l = 0
+        for i in dword:
+             if i in word:
+                  l += 1
+        if l >= len(word):
+             win = True
         charused += guess
         numleft -= 1
-        #os.system('cls' if os.name == 'nt' else 'clear')
-    print("You've used up all your guesses")
+        input("Press enter to continue")
+        os.system('cls' if os.name == 'nt' else 'clear') #clears terminal
+    if win == True:
+         print("You Won!")
+    else:
+        print("You've used up all your guesses\nThe word was %s\nPlay Again!" %word)
 
 def iscorrect(guess,word):
         for i in word:
@@ -43,6 +54,19 @@ def iscorrect(guess,word):
                 return "Correct"     
         return "Wrong"
 
+def level(choice):
+     i = 0
+     while i == 0:
+        if choice.lower() == "easy":
+            return 10
+        elif choice.lower() == "med":
+            return 5
+        elif choice.lower() == "hard":
+            return 3
+        else:
+            choice = input("Please choose a difficulty from: easy, med, hard: ")
+          
+    
 
 contplaying = True
 while contplaying:
