@@ -1,7 +1,3 @@
-Here's the game description formatted in Markdown for readability:
-
----
-
 # Word Guessing Game 🎮
 
 ## Objective  
